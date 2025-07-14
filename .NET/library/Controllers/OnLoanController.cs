@@ -14,7 +14,7 @@ namespace OneBeyondApi.Controllers
         public OnLoanController(ILogger<OnLoanController> logger, IOnLoanRepository onLoanRepository)
         {
             _logger = logger;
-            _onLoanRepository = onLoanRepository;   
+            _onLoanRepository = onLoanRepository;
         }
 
         [HttpGet]
@@ -22,6 +22,13 @@ namespace OneBeyondApi.Controllers
         public IList<OnLoan> Get()
         {
             return _onLoanRepository.GetOnLoans();
+        }
+
+        [HttpPost]
+        [Route("ReturnBook")]
+        public bool Post(Guid bookId)
+        {
+            return _onLoanRepository.ReturnBook(bookId);
         }
     }
 }
