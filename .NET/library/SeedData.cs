@@ -19,6 +19,10 @@ namespace OneBeyondApi
             {
                 Name = "Margaret Jones"
             };
+            var brandonSanderson = new Author
+            {
+                Name = "Brandon Sanderson"
+            };
 
             var clayBook = new Book
             {
@@ -42,6 +46,14 @@ namespace OneBeyondApi
                 Format = BookFormat.Paperback,
                 Author = margaretJones,
                 ISBN = "3134324111"
+            };
+
+            var stormLightBook = new Book
+            {
+                Name = "The Way of Kings",
+                Format = BookFormat.Paperback,
+                Author = brandonSanderson,
+                ISBN = "9780765326355"
             };
 
             var daveSmith = new Borrower
@@ -76,6 +88,13 @@ namespace OneBeyondApi
                 LoanEndDate = DateTime.Now.Date.AddDays(7)
             };
 
+            var bookOnLoanBeforeThisWeek = new BookStock
+            {
+                Book = stormLightBook,
+                OnLoanTo = lianaJames,
+                LoanEndDate = DateTime.Now.Date.AddDays(-1)
+            };
+
             var rustBookStock = new BookStock
             {
                 Book = rustBook,
@@ -100,6 +119,7 @@ namespace OneBeyondApi
                 context.Catalogue.Add(bookOnLoanUntilToday);
                 context.Catalogue.Add(bookNotOnLoan);
                 context.Catalogue.Add(bookOnLoanUntilNextWeek);
+                context.Catalogue.Add(bookOnLoanBeforeThisWeek);
                 context.Catalogue.Add(rustBookStock);
 
                 context.SaveChanges();
