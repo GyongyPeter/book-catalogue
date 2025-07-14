@@ -5,7 +5,7 @@ namespace OneBeyondApi
 {
     public class SeedData
     {
-        public static void SetInitialData()
+        public static void SetInitialData(LibraryContext context)
         {
             var ernestMonkjack = new Author
             {
@@ -26,6 +26,7 @@ namespace OneBeyondApi
 
             var clayBook = new Book
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58874"),
                 Name = "The Importance of Clay",
                 Format = BookFormat.Paperback,
                 Author = ernestMonkjack,
@@ -34,6 +35,7 @@ namespace OneBeyondApi
 
             var agileBook = new Book
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58875"),
                 Name = "Agile Project Management - A Primer",
                 Format = BookFormat.Hardback,
                 Author = sarahKennedy,
@@ -42,6 +44,7 @@ namespace OneBeyondApi
 
             var rustBook = new Book
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58876"),
                 Name = "Rust Development Cookbook",
                 Format = BookFormat.Paperback,
                 Author = margaretJones,
@@ -50,6 +53,7 @@ namespace OneBeyondApi
 
             var stormLightBook = new Book
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58877"),
                 Name = "The Way of Kings",
                 Format = BookFormat.Paperback,
                 Author = brandonSanderson,
@@ -58,12 +62,14 @@ namespace OneBeyondApi
 
             var daveSmith = new Borrower
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58878"),
                 Name = "Dave Smith",
                 EmailAddress = "dave@smithy.com"
             };
 
             var lianaJames = new Borrower
             {
+                Id = new Guid("954c9369-545d-4ee8-8769-5e1668f58879"),
                 Name = "Liana James",
                 EmailAddress = "liana@gmail.com"
             };
@@ -102,29 +108,25 @@ namespace OneBeyondApi
                 LoanEndDate = null
             };
 
-            using (var context = new LibraryContext())
-            {
-                context.Authors.Add(ernestMonkjack);
-                context.Authors.Add(sarahKennedy);
-                context.Authors.Add(margaretJones);
+            context.Authors.Add(ernestMonkjack);
+            context.Authors.Add(sarahKennedy);
+            context.Authors.Add(margaretJones);
 
 
-                context.Books.Add(clayBook);
-                context.Books.Add(agileBook);
-                context.Books.Add(rustBook);
+            context.Books.Add(clayBook);
+            context.Books.Add(agileBook);
+            context.Books.Add(rustBook);
 
-                context.Borrowers.Add(daveSmith);
-                context.Borrowers.Add(lianaJames);
+            context.Borrowers.Add(daveSmith);
+            context.Borrowers.Add(lianaJames);
 
-                context.Catalogue.Add(bookOnLoanUntilToday);
-                context.Catalogue.Add(bookNotOnLoan);
-                context.Catalogue.Add(bookOnLoanUntilNextWeek);
-                context.Catalogue.Add(bookOnLoanBeforeThisWeek);
-                context.Catalogue.Add(rustBookStock);
+            context.Catalogue.Add(bookOnLoanUntilToday);
+            context.Catalogue.Add(bookNotOnLoan);
+            context.Catalogue.Add(bookOnLoanUntilNextWeek);
+            context.Catalogue.Add(bookOnLoanBeforeThisWeek);
+            context.Catalogue.Add(rustBookStock);
 
-                context.SaveChanges();
-
-            }
+            context.SaveChanges();
         }
     }
 }
