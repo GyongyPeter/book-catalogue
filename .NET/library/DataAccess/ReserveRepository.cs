@@ -14,17 +14,20 @@ namespace OneBeyondApi.DataAccess
 
         public DateTime AvailableFrom(Guid bookId)
         {
-
             var bookStock = _context.Catalogue
                 .Include(x => x.Book)
                 .FirstOrDefault(x => x.Book.Id == bookId);
+
+            if (bookStock == null || bookStock.LoanEndDate == null)
+            {
+                throw new InvalidOperationException($"No book found with ID: {bookId} or not on loan.");
+            }
 
             return bookStock.LoanEndDate.Value.AddDays(1);
         }
 
         public ReservationResult ReserveBook(Guid bookId, Guid borrowerId)
         {
-
             var bookStock = _context.Catalogue
                 .Include(x => x.Book)
                 .Include(x => x.OnLoanTo)
@@ -52,7 +55,6 @@ namespace OneBeyondApi.DataAccess
             bookStock.Reserved = borrower;
 
             _context.SaveChanges();
-
 
             return ReservationResult.Success;
         }
