@@ -5,6 +5,8 @@ namespace OneBeyondApi.DataAccess
 {
     public class OnLoanRepository : IOnLoanRepository
     {
+        private static readonly int FINES_FOR_LATE_RETURNS = 500;
+
         public OnLoanRepository()
         {
         }
@@ -42,6 +44,11 @@ namespace OneBeyondApi.DataAccess
                 if (bookStock == null || bookStock.OnLoanTo == null)
                 {
                     return false;
+                }
+
+                if (bookStock.LoanEndDate < DateTime.UtcNow)
+                {
+                    bookStock.OnLoanTo.Fine += FINES_FOR_LATE_RETURNS;
                 }
 
                 bookStock.LoanEndDate = null;
