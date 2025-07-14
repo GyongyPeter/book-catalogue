@@ -21,14 +21,33 @@ namespace OneBeyondApi.Controllers
         [Route("GetOnLoans")]
         public IList<OnLoan> Get()
         {
-            return _onLoanRepository.GetOnLoans();
+            _logger.LogInformation("Fetching all borrowers with active loan(s).");
+
+            var result = _onLoanRepository.GetOnLoans();
+
+            _logger.LogInformation("Found {Count} borrowers with active loan(s).", result.Count);
+
+            return result;
         }
 
         [HttpPost]
         [Route("ReturnBook")]
-        public bool Post(Guid bookId)
+        public IActionResult Post(Guid bookId)
         {
-            return _onLoanRepository.ReturnBook(bookId);
+            _logger.LogInformation("Attempting to return book with ID: {BookId}", bookId);
+
+            var success = _onLoanRepository.ReturnBook(bookId);
+
+            if (success)
+            {
+                _logger.LogInformation("Book returned successfully. ID: {BookId}", bookId);
+                return Ok();
+            }
+            else
+            {
+                _logger.LogWarning("Book return failed. Book with ID {BookId} not found.", bookId);
+                return NotFound($"Book with ID {bookId} not found or not on loan.");
+            }
         }
     }
 }
