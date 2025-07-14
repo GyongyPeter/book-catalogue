@@ -39,7 +39,7 @@ namespace OneBeyondApi.DataAccess
                     .Where(x => x.Book.Id == bookId)
                     .FirstOrDefault();
 
-                if (bookStock == null)
+                if (bookStock == null || bookStock.OnLoanTo == null)
                 {
                     return false;
                 }
