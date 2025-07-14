@@ -19,7 +19,7 @@ namespace OneBeyondApi.DataAccess
                 .Include(x => x.Book)
                 .FirstOrDefault(x => x.Book.Id == bookId);
 
-            return bookStock.LoanEndDate.Value.AddDays(1); 
+            return bookStock.LoanEndDate.Value.AddDays(1);
         }
 
         public ReservationResult ReserveBook(Guid bookId, Guid borrowerId)

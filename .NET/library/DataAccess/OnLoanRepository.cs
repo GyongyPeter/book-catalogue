@@ -28,7 +28,7 @@ namespace OneBeyondApi.DataAccess
                 })
                 .ToList();
 
-            return list;      
+            return list;
         }
 
         public bool ReturnBook(Guid bookId)
